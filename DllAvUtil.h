@@ -96,7 +96,9 @@ public:
   virtual int64_t av_rescale_q(int64_t a, AVRational bq, AVRational cq)=0;
   virtual const AVCRC* av_crc_get_table(AVCRCId crc_id)=0;
   virtual uint32_t av_crc(const AVCRC *ctx, uint32_t crc, const uint8_t *buffer, size_t length)=0;
+  #if defined(HAVE_LIBAVCODEC_OPT_H)
   virtual int av_opt_set(void *obj, const char *name, const char *val, int search_flags)=0;
+  #endif
   virtual AVFifoBuffer *av_fifo_alloc(unsigned int size) = 0;
   virtual void av_fifo_free(AVFifoBuffer *f) = 0;
   virtual void av_fifo_reset(AVFifoBuffer *f) = 0;
@@ -129,7 +131,9 @@ public:
    virtual int64_t av_rescale_q(int64_t a, AVRational bq, AVRational cq) { return ::av_rescale_q(a, bq, cq); }
    virtual const AVCRC* av_crc_get_table(AVCRCId crc_id) { return ::av_crc_get_table(crc_id); }
    virtual uint32_t av_crc(const AVCRC *ctx, uint32_t crc, const uint8_t *buffer, size_t length) { return ::av_crc(ctx, crc, buffer, length); }
+   #if defined(HAVE_LIBAVCODEC_OPT_H)
    virtual int av_opt_set(void *obj, const char *name, const char *val, int search_flags) { return ::av_opt_set(obj, name, val, search_flags); }
+   #endif
   virtual AVFifoBuffer *av_fifo_alloc(unsigned int size) {return ::av_fifo_alloc(size); }
   virtual void av_fifo_free(AVFifoBuffer *f) { ::av_fifo_free(f); }
   virtual void av_fifo_reset(AVFifoBuffer *f) { ::av_fifo_reset(f); }
@@ -175,7 +179,9 @@ class DllAvUtilBase : public DllDynamic, DllAvUtilInterface
   DEFINE_METHOD3(int64_t, av_rescale_q, (int64_t p1, AVRational p2, AVRational p3));
   DEFINE_METHOD1(const AVCRC*, av_crc_get_table, (AVCRCId p1))
   DEFINE_METHOD4(uint32_t, av_crc, (const AVCRC *p1, uint32_t p2, const uint8_t *p3, size_t p4));
+  #if defined(HAVE_LIBAVCODEC_OPT_H)
   DEFINE_METHOD4(int, av_opt_set, (void *p1, const char *p2, const char *p3, int p4));
+  #endif
   DEFINE_METHOD1(AVFifoBuffer*, av_fifo_alloc, (unsigned int p1))
   DEFINE_METHOD1(void, av_fifo_free, (AVFifoBuffer *p1))
   DEFINE_METHOD1(void, av_fifo_reset, (AVFifoBuffer *p1))
@@ -202,7 +208,9 @@ class DllAvUtilBase : public DllDynamic, DllAvUtilInterface
     RESOLVE_METHOD(av_rescale_q)
     RESOLVE_METHOD(av_crc_get_table)
     RESOLVE_METHOD(av_crc)
+    #if defined(HAVE_LIBAVCODEC_OPT_H)
     RESOLVE_METHOD(av_opt_set)
+    #endif
     RESOLVE_METHOD(av_fifo_alloc)
     RESOLVE_METHOD(av_fifo_free)
     RESOLVE_METHOD(av_fifo_reset)
