@@ -49,8 +49,10 @@ extern "C" {
   #endif
   #if defined(HAVE_LIBAVUTIL_OPT_H)
     #include <libavutil/opt.h>
-  #elif defined(HAVE_LIBAVCODEC_AVCODEC_H)
+  #elif defined(HAVE_LIBAVCODEC_OPT_H)
     #include <libavcodec/opt.h>
+  #elif defined(HAVE_LIBAVCODEC_AVCODEC_H)
+    #include <libavcodec/avcodec.h>
   #else
     #include <ffmpeg/opt.h>
   #endif
