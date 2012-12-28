@@ -110,6 +110,7 @@ private:
   bool prepared_;
   DISPMANX_ELEMENT_HANDLE_T dispman_element_;
   DISPMANX_DISPLAY_HANDLE_T dispman_display_;
+  EGL_DISPMANX_WINDOW_T native_window_;
   EGLDisplay display_;
   EGLContext context_;
   EGLSurface surface_;

@@ -55,6 +55,7 @@ extern "C" {
 #include "OMXPlayerVideo.h"
 #include "OMXPlayerAudio.h"
 #include "OMXPlayerSubtitles.h"
+#include "OMXPlayerOSD.h"
 #include "DllOMX.h"
 #include "Srt.h"
 
@@ -93,6 +94,7 @@ DllBcmHost        m_BcmHost;
 OMXPlayerVideo    m_player_video;
 OMXPlayerAudio    m_player_audio;
 OMXPlayerSubtitles  m_player_subtitles;
+OMXPlayerOSD      m_player_osd;
 int               m_tv_show_info        = 0;
 bool              m_has_video           = false;
 bool              m_has_audio           = false;
@@ -659,6 +661,12 @@ int main(int argc, char *argv[])
                                          m_boost_on_downmix, m_thread_player))
     goto do_exit;
 
+  if(!m_player_osd.Open(m_font_path,
+                        m_font_size,
+                        m_av_clock,
+                        m_omx_reader.GetStreamLength()))
+    goto do_exit;
+
   m_av_clock->SetSpeed(DVD_PLAYSPEED_NORMAL);
   m_av_clock->OMXStateExecute();
   m_av_clock->OMXStart(0.0);
@@ -787,6 +795,9 @@ int main(int argc, char *argv[])
           m_player_subtitles.SetDelay(m_player_subtitles.GetDelay() + 250);
           PrintSubtitleInfo();
         }
+        break;
+      case 'b':
+        m_player_osd.Toggle();
         break;
       case 'q':
         m_stop = true;

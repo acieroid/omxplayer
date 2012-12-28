@@ -74,6 +74,7 @@ Key Bindings
 While playing you can use the following keys to control omxplayer:
 
     z			Show Info
+    b			Display OSD
     1			Increase Speed
     2			Decrease Speed
     j			Previous Audio stream

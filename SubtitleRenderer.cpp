@@ -270,6 +270,7 @@ SubtitleRenderer(int layer,
 : prepared_(),
   dispman_element_(),
   dispman_display_(),
+  native_window_(),
   display_(),
   context_(),
   surface_(),
@@ -470,12 +471,11 @@ void SubtitleRenderer::initialize_vg() {
 
   ENFORCE(eglBindAPI(EGL_OPENVG_API));
 
-  static EGL_DISPMANX_WINDOW_T nativewindow;
-  nativewindow.element = dispman_element_;
-  nativewindow.width = buffer_width_;
-  nativewindow.height = buffer_height_;
+  native_window_.element = dispman_element_;
+  native_window_.width = buffer_width_;
+  native_window_.height = buffer_height_;
      
-  surface_ = eglCreateWindowSurface(display_, config, &nativewindow, NULL);
+  surface_ = eglCreateWindowSurface(display_, config, &native_window_, NULL);
   ENFORCE(surface_);
 
   // create an EGL rendering context
