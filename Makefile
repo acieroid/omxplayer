@@ -28,6 +28,7 @@ SRC=linux/XMemUtils.cpp \
 		OMXPlayerVideo.cpp \
 		OMXPlayerAudio.cpp \
 		OMXPlayerSubtitles.cpp \
+		OMXPlayerOSD.cpp \
 		SubtitleRenderer.cpp \
 		Unicode.cpp \
 		Srt.cpp \
