@@ -87,6 +87,8 @@ public:
   }
 };
 
+EGLDisplay SubtitleRenderer::display_ = NULL;
+
 void SubtitleRenderer::load_glyph(char32_t codepoint) {
   VGfloat escapement[2]{};
 
@@ -271,7 +273,6 @@ SubtitleRenderer(int layer,
   dispman_element_(),
   dispman_display_(),
   native_window_(),
-  display_(),
   context_(),
   surface_(),
   vg_font_(),
@@ -447,12 +448,14 @@ void SubtitleRenderer::destroy_window() {
 }
 
 void SubtitleRenderer::initialize_vg() {
-  // get an EGL display connection
-  display_ = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-  ENFORCE(display_);
+  if (display_ == NULL) {
+    // get an EGL display connection
+    display_ = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+    ENFORCE(display_);
 
-  // initialize the EGL display connection
-  ENFORCE(eglInitialize(display_, NULL, NULL));
+    // initialize the EGL display connection
+    ENFORCE(eglInitialize(display_, NULL, NULL));
+  }
 
   // get an appropriate EGL frame buffer configuration
   static const EGLint attribute_list[] = {
@@ -578,6 +581,8 @@ void SubtitleRenderer::draw() BOOST_NOEXCEPT {
 }
 
 void SubtitleRenderer::swap_buffers() BOOST_NOEXCEPT {
-  EGLBoolean result = eglSwapBuffers(display_, surface_);
-  assert(result);
+  if (display_) {
+    EGLBoolean result = eglSwapBuffers(display_, surface_);
+    assert(result);
+  }
 }

@@ -107,11 +107,12 @@ private:
   int get_text_width(const std::vector<InternalChar>& text);
   std::vector<InternalChar> get_internal_chars(const std::string& str);
 
+  static EGLDisplay display_;
+
   bool prepared_;
   DISPMANX_ELEMENT_HANDLE_T dispman_element_;
   DISPMANX_DISPLAY_HANDLE_T dispman_display_;
   EGL_DISPMANX_WINDOW_T native_window_;
-  EGLDisplay display_;
   EGLContext context_;
   EGLSurface surface_;
   VGFont vg_font_;
